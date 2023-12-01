@@ -13,4 +13,40 @@
   [ns  ns pop acc +  sum] ifempty not do?
 ] \sum def # TODO: builtin? Maybe not this signature though
 
+# PART 1
 input \todigs map 0 sum pls
+
+
+[[from to]: from split to join] \replace def
+[ "zero"  0 replace
+  "one"   1 replace
+  "two"   2 replace
+  "three" 3 replace
+  "four"  4 replace
+  "five"  5 replace
+  "six"   6 replace
+  "seven" 7 replace
+  "eight" 8 replace
+  "nine"  9 replace
+] \numtodig def
+"0,1,2,3,4,5,6,7,8,9,zero,one,two,three,four,five,six,seven,eight,nine"
+"," split \nums:
+[chars deq swap drop "" join] \dropfirst def
+[\s: 
+  nums [s swap starts-with?] filter \num:
+  [num first numtodig] num len 0 gt? do?
+  [s dropfirst firstnum] num len 1 lt? do?
+] \firstnum def
+[chars pop drop "" join] \droplast def
+[\s: nums [s swap ends-with?] filter \num:
+  [num first numtodig] num len 0 gt? do?
+  [s droplast lastnum] num len 1 lt? do?
+] \lastnum def
+
+[\s:  s len 0 gt? \has-content:  has-content not \empty:
+  [s firstnum  s lastnum  push "" join to-int] has-content do?
+  [ 0 ] empty do?
+] \todigs2 def
+
+# PART 2
+input \todigs2 map 0 sum pls
