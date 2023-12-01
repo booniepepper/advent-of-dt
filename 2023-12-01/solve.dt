@@ -1,0 +1,16 @@
+#!/usr/bin/env dt
+
+"input" readf lines \input:
+
+[[c]: c "0" gte?  c "9" lte?  and] \isdig def # TODO: builtin
+["" join] \unchars def # TODO: stdlib
+[\digs: digs first digs last push unchars] \weirdnum def
+[\digs:  digs len 1 lt? \ifempty:  [0] ifempty do? [digs weirdnum] ifempty not do?] \safeweirdnum def
+[chars \isdig filter safeweirdnum] \todigs def
+
+[[ns acc]:  ns len 1 lt? \ifempty:
+  [acc] ifempty do?
+  [ns  ns pop acc +  sum] ifempty not do?
+] \sum def # TODO: builtin? Maybe not this signature though
+
+input \todigs map 0 sum pls
