@@ -17,6 +17,7 @@ echo -n "PART 1: "
   | bc
 
 # TODO: Add sum to builtins
+# TODO: Add string replace to builtins
 
 echo -n "PART 2: "
 <input \
